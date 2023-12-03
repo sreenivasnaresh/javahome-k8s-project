@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    options {
+        buildDiscarder logRotator(daysToKeepStr: '2', numToKeepStr: '2')
+    }
+
     stages {
         stage('Build the source code using maven') {
             steps {
