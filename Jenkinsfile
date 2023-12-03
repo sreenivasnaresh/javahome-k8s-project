@@ -12,17 +12,17 @@ pipeline {
         }
         stage('Docker build'){
             steps{
-                sh 'docker build --tag java-app:1.0 .'
+                sh 'docker build --tag vsnaresh/java-app:1.1 .'
             }
         }
         stage('Docker push'){
               steps{
                 //   sshagent(['docker']) {
-                //     sh 'ssh ubuntu@172.31.43.150 docker run -d -p 8095:8095 --name vsnaresh/java-app java-app:1.0'
+                //     sh 'ssh ubuntu@172.31.43.150 docker run -d -p 8095:8095 --name vsnaresh/java-app java-app:1.1'
                 // }
                   withCredentials([usernamePassword(credentialsId: 'docker-cred', passwordVariable: 'pwd', usernameVariable: 'uName')]) {
                     sh "docker login -u ${uName} -p ${pwd}"
-                    sh "docker push vsnaresh/java-app:1.0"
+                    sh "docker push vsnaresh/java-app:1.1"
                   }
               }
         }
