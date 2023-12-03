@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Docker build'){
             steps{
-                sh 'docker buildx build tag java-app:1.0 .'
+                sh 'docker build .'
             }
         }
 
