@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Docker build'){
             steps{
-                sh 'docker build -t first-image/java-app:1.0 .'
+                sh 'docker buildx build -t first-image/java-app:1.0 .'
             }
         }
 
