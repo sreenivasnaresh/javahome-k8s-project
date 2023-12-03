@@ -15,7 +15,7 @@ pipeline {
                 sh 'docker build --tag java-app:1.0 .'
             }
         }
-        stage('Docker push){
+        stage('Docker push'){
               steps{
                   sshagent(['docler']) {
                     sh 'ssh ubuntu@172.31.43.150 docker run -d -p 8095:8095 --name java-app java-app:1.0'
