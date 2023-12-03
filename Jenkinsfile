@@ -21,7 +21,7 @@ pipeline {
                 //     sh 'ssh ubuntu@172.31.43.150 docker run -d -p 8095:8095 --name vsnaresh/java-app java-app:1.0'
                 // }
                   withCredentials([usernamePassword(credentialsId: 'docker-cred', passwordVariable: 'pwd', usernameVariable: 'uName')]) {
-                    sh 'docker run -d -p 8095:8095 --name vsnaresh/java-app java-app:1.0'
+                    sh 'docker run -d -p 8095:8095 --name java-app vsnaresh/java-app:1.0'
                   }
               }
         }
