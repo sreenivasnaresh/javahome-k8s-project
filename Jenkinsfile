@@ -12,7 +12,7 @@ pipeline {
         // }
         stage('Docker build'){
             steps{
-                sh 'docker build --tag vsnaresh/java-app:1.2 .'
+                sh 'docker build --tag vsnaresh/java-app:1.3 .'
             }
         }
         stage('Docker push'){
@@ -22,7 +22,7 @@ pipeline {
                 // }
                   withCredentials([usernamePassword(credentialsId: 'docker-cred', passwordVariable: 'pwd', usernameVariable: 'uName')]) {
                     sh "docker login -u ${uName} -p ${pwd}"
-                    sh "docker push vsnaresh/java-app:1.2"
+                    sh "docker push vsnaresh/java-app:1.3"
                   }
               }
         }
