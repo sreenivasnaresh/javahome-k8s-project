@@ -2,43 +2,47 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
-spec:
+spec: 
+  replicas: 1
   selector:
     matchLabels:
       app: mysql
   strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
+    type: Recreate 
+  template: 
+    metadata: 
+      labels: 
         app: mysql
-    spec:
+    spec: 
       containers:
-      - image: mysql:5.6
-        name: mysql
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: password
-        ports:
-        - containerPort: 3306
-          name: mysql
-        volumeMounts:
+        - name: mysql
+          image: mysql:5.6
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: India@123
+          ports:
+            - containerPort: 3306
+              name: mysql    
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql    
+            - name: usermanagement-dbcreation-script
+              mountPath: /docker-entrypoint-initdb.d
+      volumes: 
         - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql
-      volumes:
-      - name: mysql-persistent-storage
-        persistentVolumeClaim:
-          claimName: mysql-pv-claim
+          persistentVolumeClaim:
+            claimName: ebs-mysql-pv-claim
+        - name: usermanagement-dbcreation-script
+          configMap:
+            name: usermanagement-dbcreation-script
 ---
 apiVersion: v1
 kind: Service
-metadata:
+metadata: 
   name: mysql
 spec:
-  ports:
-  - port: 3306
   selector:
-    app: mysql
+    app: mysql 
+  ports: 
+    - port: 3306  
+  clusterIP: None
